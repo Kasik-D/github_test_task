@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { LegacyRef } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
-// import { Header } from '../header/header';
+import { colors } from '../../theme';
+import { Header } from '../header/header';
 import { SafeAreaWrapper } from '../safe-area-wrapper/safe-area-wrapper';
 
 type Props = {
@@ -27,8 +28,8 @@ export const Layout = ({
   isScrollable = false,
   isTransparent = false,
   refScroll,
-  statusBarBackgroundColor = '#fff',
-  screenBackgroundColor = '#fff',
+  statusBarBackgroundColor = colors.primary[400],
+  screenBackgroundColor = colors.primary[400],
 }: Props) => {
   const content = (
     <View
@@ -50,7 +51,7 @@ export const Layout = ({
       }}
     >
       <SafeAreaWrapper statusBarBackgroundColor={statusBarBackgroundColor}>
-        <StatusBar />
+        <StatusBar style='light' />
         <KeyboardAvoidingView
           enabled={isKeyboardAvoiding}
           style={{
@@ -58,7 +59,7 @@ export const Layout = ({
           }}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          {/* {isHeaderVisible ? <Header /> : null} */}
+          {isHeaderVisible ? <Header /> : null}
 
           {isScrollable ? (
             <ScrollView
