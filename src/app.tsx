@@ -12,8 +12,6 @@ const App = () => {
   );
 };
 
-export default registerRootComponent(App);
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
@@ -22,3 +20,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default registerRootComponent(App);

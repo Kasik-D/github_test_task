@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "github",
+    "slug": "github",
+    "owner": "danil_kas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
