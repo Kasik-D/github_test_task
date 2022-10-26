@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export type Props = {
   repoName: string;
@@ -9,10 +9,41 @@ export type Props = {
 
 export const RepostListItem = ({ repoName, repoLanguage, repoDescription }: Props) => {
   return (
-    <View>
-      <Text>{repoName}</Text>
-      <Text>{repoLanguage}</Text>
-      <Text>{repoDescription}</Text>
+    <View style={styles.contentContainerStyle}>
+      <Text style={styles.repoNameText}>{repoName}</Text>
+      <View style={styles.flexContainer}>
+        <Text style={styles.languageText}>language: </Text>
+        <Text style={styles.strongText}>{repoLanguage}</Text>
+      </View>
+      <View style={styles.flexContainer}>
+        <Text>description: </Text>
+        <Text style={styles.strongText}>{repoDescription || 'not specified'}</Text>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 10,
+  },
+  flexContainer: {
+    alignContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  languageText: {
+    marginBottom: 10,
+  },
+  repoNameText: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
+  strongText: {
+    fontWeight: '600',
+  },
+});

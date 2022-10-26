@@ -13,8 +13,6 @@ export const Home = () => {
 
   const { refetch, data, isLoading, isRefetching } = useBenificiarysQuery(mainInputText);
 
-  console.log('data =>', data);
-
   const ClickButton = () => {
     setMainInputText(inputText);
   };
@@ -42,7 +40,9 @@ export const Home = () => {
             Search history:
           </Text>
         </View>
-        <UserReposList data={data} />
+        <View style={styles.listContainer}>
+          <UserReposList data={data} />
+        </View>
       </View>
     </Layout>
   );
@@ -60,6 +60,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  listContainer: {
+    flex: 1,
+    marginTop: 20,
+    paddingBottom: 20,
+  },
   searchHistoryContainer: {
     marginTop: 15,
   },
@@ -70,6 +75,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   wrapper: {
+    flex: 1,
     paddingHorizontal: 30,
     paddingTop: 20,
   },

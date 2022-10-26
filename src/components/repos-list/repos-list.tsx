@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 
 import { RepostListItem } from './repos-list-item/repos-list-item';
 
@@ -20,5 +20,19 @@ export const UserReposList = ({ data }: any) => {
     [],
   );
 
-  return <FlatList data={data || []} renderItem={renderItem} keyExtractor={keyExtractor} />;
+  return (
+    <FlatList
+      data={data || []}
+      style={styles.contentContainerStyle}
+      contentContainerStyle={styles.contentContainerStyle}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+    />
+  );
 };
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+});
