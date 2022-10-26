@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.danil_kas.github"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
