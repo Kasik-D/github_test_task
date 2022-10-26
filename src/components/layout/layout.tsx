@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { LegacyRef } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '../../theme';
 import { Header } from '../header/header';
@@ -34,7 +34,7 @@ export const Layout = ({
   const content = (
     <View
       style={{
-        flexGrow: 1,
+        ...styles.contentContainerStyle,
         backgroundColor: screenBackgroundColor,
         ...wrapperOptions,
       }}
@@ -46,7 +46,7 @@ export const Layout = ({
   return (
     <View
       style={{
-        flex: 1,
+        ...styles.layoutContainerStyle,
         backgroundColor: isTransparent ? 'transparent' : '#fff',
       }}
     >
@@ -54,9 +54,7 @@ export const Layout = ({
         <StatusBar style='light' />
         <KeyboardAvoidingView
           enabled={isKeyboardAvoiding}
-          style={{
-            flex: 1,
-          }}
+          style={styles.layoutContainerStyle}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           {isHeaderVisible ? <Header /> : null}
@@ -73,16 +71,19 @@ export const Layout = ({
               {content}
             </ScrollView>
           ) : (
-            <View
-              style={{
-                flexGrow: 1,
-              }}
-            >
-              {content}
-            </View>
+            <View style={styles.contentContainerStyle}>{content}</View>
           )}
         </KeyboardAvoidingView>
       </SafeAreaWrapper>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+  layoutContainerStyle: {
+    flex: 1,
+  },
+});

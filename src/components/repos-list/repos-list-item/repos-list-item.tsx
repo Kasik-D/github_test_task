@@ -13,7 +13,7 @@ export const RepostListItem = ({ repoName, repoLanguage, repoDescription }: Prop
       <Text style={styles.repoNameText}>{repoName}</Text>
       <View style={styles.flexContainer}>
         <Text style={styles.languageText}>language: </Text>
-        <Text style={styles.strongText}>{repoLanguage}</Text>
+        <Text style={styles.strongText}>{repoLanguage || 'not specified'}</Text>
       </View>
       <View style={styles.flexContainer}>
         <Text>description: </Text>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   languageText: {
     marginBottom: 10,
