@@ -1,21 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { Layout, SearchIcon, TextInput, UserReposList } from '../components';
+import {
+  Layout,
+  RequestHandler,
+  SearchIcon,
+  SearchList,
+  TextInput,
+  UserReposList,
+} from '../components';
 import { useBenificiarysQuery } from '../hooks';
-import { colors } from '../theme';
 
 export const Home = () => {
   const [inputText, setInputText] = React.useState('');
   const [mainInputText, setMainInputText] = React.useState(inputText);
+  const [searchHistoryList, setSearchHistoryList] = React.useState<Array<string>>([]);
 
   const onChangeText = (text: string) => setInputText(text);
 
-  const { refetch, data, isLoading, isRefetching } = useBenificiarysQuery(mainInputText);
+  const { data, isLoading, error, status } = useBenificiarysQuery(mainInputText);
 
   const ClickButton = () => {
     setMainInputText(inputText);
+    setSearchHistoryList((prevList) => {
+      const newList = [...prevList];
+      searchHistoryList.length >= 5 && newList.pop();
+      newList.unshift(inputText);
+      return newList;
+    });
   };
+
+  const onClickHistoryItem = React.useCallback((text: string) => {
+    setMainInputText(text);
+  }, []);
 
   return (
     <Layout>
@@ -31,17 +48,16 @@ export const Home = () => {
             <SearchIcon />
           </TouchableOpacity>
         </View>
-        <View style={styles.searchHistoryContainer}>
-          <Text
-            style={{
-              color: '#fff',
-            }}
-          >
-            Search history:
-          </Text>
-        </View>
+        <SearchList list={searchHistoryList} onClickItem={onClickHistoryItem} />
         <View style={styles.listContainer}>
-          <UserReposList data={data} />
+          <RequestHandler
+            data={status === 'error' ? data : []}
+            loading={isLoading}
+            emptyDataText={'This user was not found'}
+            error={error as { message: string }}
+          >
+            <UserReposList data={data} />
+          </RequestHandler>
         </View>
       </View>
     </Layout>
@@ -61,12 +77,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   listContainer: {
+    alignContent: 'center',
     flex: 1,
+    justifyContent: 'center',
     marginTop: 20,
     paddingBottom: 20,
-  },
-  searchHistoryContainer: {
-    marginTop: 15,
   },
   searchIconContainer: {
     display: 'flex',

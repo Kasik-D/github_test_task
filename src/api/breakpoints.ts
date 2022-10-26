@@ -1,5 +1,5 @@
 export const breakpoints = {
-  searchUserRepos: (user) => {
+  searchUserRepos: (user: string) => {
     return `users/${user}/repos`;
   },
 };

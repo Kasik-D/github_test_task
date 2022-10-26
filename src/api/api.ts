@@ -7,7 +7,7 @@ import { breakpoints } from './breakpoints';
 export const useErrorsStore = create(() => ({
   hasError: false,
   error: undefined,
-  date: undefined,
+  date: undefined as unknown,
 }));
 
 const MyAppClient = axios.create({
@@ -31,11 +31,11 @@ MyAppClient.interceptors.response.use(
       error: error,
       date: Date.now(),
     });
-    return Promise.reject(error);
+    return Promise.reject(error.data?.message);
   },
 );
 
-export const searchUserRepos = async (searchUser) =>
+export const searchUserRepos = async (searchUser: string) =>
   await MyAppClient.get(breakpoints.searchUserRepos(searchUser));
 
 export { MyAppClient };
